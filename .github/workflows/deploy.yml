@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - Django-GCR
+      
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   RUN_REGION: us-central1
