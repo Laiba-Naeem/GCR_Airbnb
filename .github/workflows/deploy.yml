@@ -27,7 +27,6 @@ jobs:
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT }}
           project_id: ${{ secrets.PROJECT_ID }}
-​
       # Build and push image to Google Container Registry
       # - name: Delete-Image
       #   run: |-
