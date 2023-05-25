@@ -23,9 +23,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # BASE_DIR1 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
-
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-3*+1i*m-s0^d^bedk%gwnx(vpi(=9p&21+fp415=y45j+ad1+)"
 
