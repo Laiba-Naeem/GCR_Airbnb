@@ -3,7 +3,6 @@ on:
   push:
     branches:
       - Django-GCR
-​
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   RUN_REGION: us-central1
@@ -14,16 +13,13 @@ env:
   DB_PASS: ${{ secrets.PASSWORD }}
   INSTANCE_NAME: ${{ secrets.INSTANCE_NAME }}
   SOCKET_NAME: ${{ secrets.SOCKET_NAME}}
-​
 jobs:
   setup-build-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
-​
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-​
       # Setup gcloud CLI
       - name: Connect to gcloud
         uses: google-github-actions/setup-gcloud@v0
@@ -42,7 +38,6 @@ jobs:
           gcloud builds submit \
             --quiet \
             --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:Latest"
-​
       # Deploy image to Cloud Run
       - name: Deploy
         run: |-
