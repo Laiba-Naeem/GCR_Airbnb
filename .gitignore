@@ -6,4 +6,4 @@ db.sqlite3
 hotel_dataset.csv
 package.json
 package-lock.json
-
+app.yaml
