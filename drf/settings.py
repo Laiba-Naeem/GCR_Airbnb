@@ -75,13 +75,13 @@ WSGI_APPLICATION = "drf.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        # "ENGINE": "django.db.backends.sqlite3",
-        'ENGINE': 'django.db.backends.postgresql',
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         # "ENGINE": "django.db.backends.sqlite3",
+#         'ENGINE': 'django.db.backends.postgresql',
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -146,26 +146,25 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'HOST': os.getenv('HOST', None),
-        'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
-        'USER': os.getenv('USER', None),
-        'PASSWORD': os.getenv('PASSWORD', None),
-        'NAME': os.getenv('NAME', None),
-        'PORT': os.getenv('PORT', None)
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'HOST': '127.0.0.1',
-#         # 'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
-#         'USER': 'Laiba_Naeem',
-#         'PASSWORD': 'FnH}Cer?r%}Jq9l)',
-#         'NAME': 'laiba_db',
-#         'PORT': 5433
+#         'HOST': os.getenv('HOST', None),
+#         'USER': os.getenv('USER', None),
+#         'PASSWORD': os.getenv('PASSWORD', None),
+#         'NAME': os.getenv('NAME', None),
+#         'PORT': os.getenv('PORT', None)
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'HOST': '127.0.0.1',
+        'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
+        'USER': 'Laiba_Naeem',
+        'PASSWORD': 'FnH}Cer?r%}Jq9l)',
+        'NAME': 'laiba_db',
+        'PORT': 5433
+    }
+}
