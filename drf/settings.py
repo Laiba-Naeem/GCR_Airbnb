@@ -11,16 +11,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 from datetime import timedelta
 from pathlib import Path
-import os
-
-from dotenv import load_dotenv
-
-load_dotenv()  # take environment variables from .env.
-
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-# BASE_DIR1 = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # Quick-start development settings - unsuitable for production
@@ -54,8 +47,7 @@ INSTALLED_APPS = [
     "corsheaders",
 ]
 
-
-AUTH_USER_MODEL = 'accounts.User'
+AUTH_USER_MODEL = "accounts.User"
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
@@ -74,7 +66,7 @@ ROOT_URLCONF = "drf.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [os.path.join(BASE_DIR, 'frontend')],
+        "DIRS": [],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -93,12 +85,12 @@ WSGI_APPLICATION = "drf.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
+    }
+}
 
 
 # Password validation
@@ -139,11 +131,6 @@ USE_TZ = True
 STATIC_URL = "/static/"
 STATIC_ROOT = "static/"
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, 'frontend', "build",
-                 "static"),  # update the STATICFILES_DIRS
-)
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -168,16 +155,16 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': os.getenv('HOST', None),
-        'USER': os.getenv('USER', None),
-        'PASSWORD': os.getenv('PASSWORD', None),
-        'NAME': os.getenv('NAME', None),
-        'PORT': os.getenv('PORT', None)
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'HOST': os.getenv('HOST', None),
+#         'USER': os.getenv('USER', None),
+#         'PASSWORD': os.getenv('PASSWORD', None),
+#         'NAME': os.getenv('NAME', None),
+#         'PORT': os.getenv('PORT', None)
+#     }
+# }
 
 # DATABASES = {
 #     'default': {
