@@ -77,7 +77,8 @@ WSGI_APPLICATION = "drf.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        'ENGINE': 'django.db.backends.postgresql',
         "NAME": BASE_DIR / "db.sqlite3",
     }
 }
@@ -145,16 +146,17 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'HOST': os.getenv('HOST', None),
-#         'USER': os.getenv('USER', None),
-#         'PASSWORD': os.getenv('PASSWORD', None),
-#         'NAME': os.getenv('NAME', None),
-#         'PORT': os.getenv('PORT', None)
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'HOST': os.getenv('HOST', None),
+        'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
+        'USER': os.getenv('USER', None),
+        'PASSWORD': os.getenv('PASSWORD', None),
+        'NAME': os.getenv('NAME', None),
+        'PORT': os.getenv('PORT', None)
+    }
+}
 
 # DATABASES = {
 #     'default': {
