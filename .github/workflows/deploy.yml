@@ -8,10 +8,10 @@ env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   RUN_REGION: us-central1
   SERVICE_NAME: airbnb-laiba
-  SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
-  DB_NAME: ${{ secrets.NAME }}
-  DB_USER: ${{ secrets.USER }}
-  DB_PWD: ${{ secrets.PASSWORD }}
+  DJANGO_SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
+  NAME: ${{ secrets.NAME }}
+  USER: ${{ secrets.USER }}
+  PASSWORD: ${{ secrets.PASSWORD }}
   INSTANCE_NAME: ${{ secrets.INSTANCE_NAME }}
   SOCKET_NAME: ${{ secrets.SOCKET_NAME}}
 
@@ -27,12 +27,12 @@ jobs:
       - name: Creating Runtime .env and add service-account-key
         run: |
           touch .env
-          echo  DB_NAME="${{ secrets.NAME }}" >> .env
-          echo  DB_USER="${{ secrets.USER }}" >> .env
-          echo  DB_PWD="${{ secrets.PASSWORD }}" >> .env
-          echo  DB_PORT="${{ secrets.PORT }}" >> .env
-          echo  DB_HOST="${{ secrets.HOST }}" >> .env
-          echo  SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
+          echo  NAME="${{ secrets.NAME }}" >> .env
+          echo  USER="${{ secrets.USER }}" >> .env
+          echo  PASSWORD="${{ secrets.PASSWORD }}" >> .env
+          echo  PORT="${{ secrets.PORT }}" >> .env
+          echo  HOST="${{ secrets.HOST }}" >> .env
+          echo  SECRET_KEY="${{ secrets.DJANGO_SECRET_KEY }}" >> .env
 
       - name: Setup python 3.10
         uses: actions/setup-python@v2
@@ -53,7 +53,7 @@ jobs:
           context: .
           push: true
           tags: gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba
-
+        # Deleting previous images
       - name: Delete previous images
         run: |
           gcloud container images list --repository=gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba --format='get(digest)' | xargs -I {} gcloud container images delete gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba@{} --quiet
