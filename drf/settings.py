@@ -1,8 +1,12 @@
 
 from datetime import timedelta
 from pathlib import Path
-
+import os
+from dotenv import load_dotenv
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+
+load_dotenv()
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
@@ -75,13 +79,13 @@ WSGI_APPLICATION = "drf.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        # "ENGINE": "django.db.backends.sqlite3",
-        'ENGINE': 'django.db.backends.postgresql'
-        # "NAME": BASE_DIR / "db.sqlite3",
-    }
-}
+# DATABASES = {
+#     "default": {
+#         # "ENGINE": "django.db.backends.sqlite3",
+#         'ENGINE': 'django.db.backends.postgresql'
+#         # "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation
@@ -146,16 +150,16 @@ SIMPLE_JWT = {
 CORS_ALLOW_ALL_ORIGINS = True
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'HOST': os.getenv('HOST', None),
-#         'USER': os.getenv('USER', None),
-#         'PASSWORD': os.getenv('PASSWORD', None),
-#         'NAME': os.getenv('NAME', None),
-#         'PORT': os.getenv('PORT', None)
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': os.getenv('HOST', None),
+        'USER': os.getenv('USER', None),
+        'PASSWORD': os.getenv('PASSWORD', None),
+        'NAME': os.getenv('NAME', None)
+        # 'PORT': os.getenv('PORT', None)
+    }
+}
 
 # DATABASES = {
 #     'default': {

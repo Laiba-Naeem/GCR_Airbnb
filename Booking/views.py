@@ -173,5 +173,5 @@ class BookingCancellationView(generics.DestroyAPIView):
         )
 
 
-def index(request):
-    return render(request, "build/index.html")
+# def index(request):
+#     return render(request, "build/index.html")
