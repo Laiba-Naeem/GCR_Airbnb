@@ -1,56 +1,63 @@
 name: Build and Deploy to Cloud Run
+
 on:
   push:
-    branches:
-      - Django-GCR
-      
+    branches: [Django-GCR]
+
 env:
   PROJECT_ID: ${{ secrets.PROJECT_ID }}
   RUN_REGION: us-central1
-  SERVICE_NAME: airbnb-django-laiba
+  SERVICE_NAME: airbnb-laiba
   SECRET_KEY: ${{ secrets.DJANGO_SECRET_KEY }}
   DB_NAME: ${{ secrets.NAME }}
   DB_USER: ${{ secrets.USER }}
-  DB_PASS: ${{ secrets.PASSWORD }}
+  DB_PWD: ${{ secrets.PASSWORD }}
   INSTANCE_NAME: ${{ secrets.INSTANCE_NAME }}
   SOCKET_NAME: ${{ secrets.SOCKET_NAME}}
+
 jobs:
   setup-build-deploy:
     name: Setup, Build, and Deploy
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      # Setup gcloud CLI
+
+      - name: Creating Runtime .env and add service-account-key
+        run: |
+          touch .env
+          echo  DB_NAME="${{ secrets.NAME }}" >> .env
+          echo  DB_USER="${{ secrets.USER }}" >> .env
+          echo  DB_PWD="${{ secrets.PASSWORD }}" >> .env
+          echo  DB_PORT="${{ secrets.PORT }}" >> .env
+          echo  DB_HOST="${{ secrets.HOST }}" >> .env
+          echo  SECRET_KEY="${{ secrets.SECRET_KEY }}" >> .env
+
+      - name: Setup python 3.10
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
       - name: Connect to gcloud
         uses: google-github-actions/setup-gcloud@v0
         with:
           service_account_key: ${{ secrets.SERVICE_ACCOUNT }}
           project_id: ${{ secrets.PROJECT_ID }}
-      # Build and push image to Google Container Registry
-      # - name: Delete-Image
-      #   run: |-
-      #     gcloud auth configure-docker
-      #     gcloud container images delete gcr.io/$PROJECT_ID/$SERVICE_NAME:Latest --quiet
-      #
-      - name: Build
-        run: |-
-          gcloud builds submit \
-            --quiet \
-            --tag "gcr.io/$PROJECT_ID/$SERVICE_NAME:Latest"
+
+      - name: Configure Docker
+        run: gcloud auth configure-docker
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba
+
+      - name: Delete previous images
+        run: |
+          gcloud container images list --repository=gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba --format='get(digest)' | xargs -I {} gcloud container images delete gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba@{} --quiet
+
       # Deploy image to Cloud Run
       - name: Deploy
-        run: |-
-          gcloud run deploy "$SERVICE_NAME" \
-            --quiet \
-            --region "$RUN_REGION" \
-            --image "gcr.io/$PROJECT_ID/$SERVICE_NAME:Latest" \
-            --platform "managed" \
-            --allow-unauthenticated \
-            --set-env-vars "DJANGO_SECRET=$SECRET_KEY" \
-            --set-env-vars "INSTANCE_UNIX_SOCKET=$SOCKET_NAME" \
-            --set-env-vars "INSTANCE_CONNECTION_NAME=$INSTANCE_NAME" \
-            --set-env-vars "SOCKET_NAME=$SOCKET_NAME" \
-            --set-env-vars "DB_NAME=$DB_NAME" \
-            --set-env-vars "DB_USER=$DB_USER" \
-            --set-env-vars "DB_PASS=$DB_PASS"
+        run: gcloud run deploy airbnb-laiba --image gcr.io/${{ secrets.PROJECT_ID }}/airbnb-laiba --platform managed --project=${{ secrets.PROJECT_ID }} --allow-unauthenticated --region us-central1
