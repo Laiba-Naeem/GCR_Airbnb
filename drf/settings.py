@@ -162,15 +162,15 @@ CSRF_TRUSTED_ORIGINS = ["https://airbnb-laiba-2drk4lqwsa-uc.a.run.app"]
 #     }
 # }
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        # 'HOST': '127.0.0.1',
-        'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
-        'USER': 'Laiba_Naeem',
-        'PASSWORD': 'qwerty',
-        'NAME': 'airbnb-db',
-        'PORT': 5433,
-        'SOCKET_NAME': '/cloudsql/cloud-work-314310:us-central1:training-week'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         # 'HOST': '127.0.0.1',
+#         'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
+#         'USER': 'Laiba_Naeem',
+#         'PASSWORD': 'qwerty',
+#         'NAME': 'airbnb-db',
+#         'PORT': 5433,
+#         'SOCKET_NAME': '/cloudsql/cloud-work-314310:us-central1:training-week'
+#     }
+# }
