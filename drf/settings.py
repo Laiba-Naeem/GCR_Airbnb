@@ -81,9 +81,9 @@ WSGI_APPLICATION = "drf.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        # 'ENGINE': 'django.db.backends.postgresql'
-        "NAME": BASE_DIR / "db.sqlite3",
+        # "ENGINE": "django.db.backends.sqlite3",
+        'ENGINE': 'django.db.backends.postgresql'
+        # "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -168,8 +168,9 @@ DATABASES = {
         # 'HOST': '127.0.0.1',
         'HOST': '/cloudsql/cloud-work-314310:us-central1:training-week',
         'USER': 'Laiba_Naeem',
-        'PASSWORD': 'l+J_G_si+qJ2x9cG',
-        'NAME': 'laiba_db'
-        # 'PORT': 5432
+        'PASSWORD': 'qwerty',
+        'NAME': 'airbnb-db',
+        'PORT': 5433,
+        'SOCKET_NAME': '/cloudsql/cloud-work-314310:us-central1:training-week'
     }
 }
