@@ -149,6 +149,7 @@ SIMPLE_JWT = {
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+CSRF_TRUSTED_ORIGINS = ["https://airbnb-laiba-2drk4lqwsa-uc.a.run.app/"]
 
 DATABASES = {
     'default': {
